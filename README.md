@@ -26,6 +26,14 @@ For a full walkthrough of the logic, file by file, plus likely review questions 
 
 Category colours are taken from rupee notes: Food ₹200 yellow, Travel ₹100 lavender, Utilities ₹50 blue, Shopping ₹2000 magenta, Health ₹10 brown, Entertainment ₹20 green-yellow, Other ₹500 grey.
 
+## Deploy
+
+```bash
+npm run deploy
+```
+
+Builds a static export (`out/`) and publishes it to the `gh-pages` branch, which GitHub Pages serves at https://satwikkkkk.github.io/expense-tracker/. See `scripts/deploy.mjs`.
+
 ## Stack
 
 Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Motion · Lucide icons · Anek Latin (text) and Manrope (numbers).

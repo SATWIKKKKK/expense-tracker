@@ -561,4 +561,17 @@ npm run start    # serve the production build
 npm run lint     # ESLint
 ```
 
+### Deploying (GitHub Pages)
+
+Live: **https://satwikkkkk.github.io/expense-tracker/**
+
+```bash
+npm run deploy
+```
+
+- `next.config.ts` sets `output: "export"`. `next build` then writes plain HTML/CSS/JS to `out/`, because GitHub Pages can only host static files (and the app needs no server).
+- The site lives under `/expense-tracker/`, so `basePath` adds that prefix to every asset URL. `scripts/deploy.mjs` sets it through the `PAGES_BASE_PATH` variable, and local dev leaves it empty.
+- The script adds an empty `out/.nojekyll` file. Otherwise GitHub's Jekyll step would drop the `_next/` folder, where all the JavaScript and CSS live.
+- It then publishes `out/` to the `gh-pages` branch with the `gh-pages` package. GitHub Pages serves that branch.
+
 To see the saved data: open DevTools → **Application** → **Local Storage** → `http://localhost:3000` → key `kharcha:expenses:v1`. Delete the key to reset the app.

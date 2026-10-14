@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 // GitHub Pages serves a project site from /<repo-name>/, so every asset URL
-// needs that prefix. The deploy workflow passes it in; local dev leaves it empty.
+// needs that prefix. scripts/deploy.mjs sets it; local dev leaves it empty.
 const basePath = process.env.PAGES_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
