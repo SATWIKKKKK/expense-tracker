@@ -1,6 +1,7 @@
 # Kharcha
 
 **Live:** https://satwikkkkk.github.io/expense-tracker/
+
 A browser-based expense tracker. Log an expense (name, amount, category), see the running total and how it splits by category. Everything is saved to `localStorage`, so a reload loses nothing.
 
 ## Run
