@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/*
+ * Warm cream, mostly flat. Surfaces are cream cards with a hairline border
+ * and a very soft shadow. Neumorphism is kept for one element only, the
+ * navbar's section tabs, so it reads as a detail rather than a theme.
+ * Light theme only.
+ */
+:root {
+  --surface: #f4eee3; /* beige page */
+  --card: #fbf8f1; /* cream cards */
+  --tint: #f1eadc; /* quiet fills: tracks, notes, the latest list */
+  --ink: #1f1a14;
+  --ink-2: #5d5447;
+  --accent: #e5383b; /* vivid red: the count badge, the active tab icon */
+  --line: #e6ddcc;
+  --line-strong: #d3c7b1;
+  --danger: #d92d2f;
+  --focus: #8a5a1c;
+
+  /* Rupee note colours (Mahatma Gandhi new series). */
+  --cat-food: #f5b400; /* ₹200 bright yellow */
+  --cat-travel: #8a6cf2; /* ₹100 lavender */
+  --cat-utilities: #00b3d6; /* ₹50 fluorescent blue */
+  --cat-shopping: #e3267f; /* ₹2000 magenta */
+  --cat-health: #a65a2e; /* ₹10 chocolate brown */
+  --cat-fun: #86c51c; /* ₹20 greenish yellow */
+  --cat-other: #9a9184; /* ₹500 stone grey */
+
+  --shadow-card: 0 1px 2px rgba(84, 62, 28, 0.05), 0 12px 32px -20px rgba(84, 62, 28, 0.3);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-tint: var(--tint);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-danger: var(--danger);
+  --color-accent: var(--accent);
+
+  /* Self-hosted via @fontsource-variable (imported in layout.tsx). */
+  --font-sans: "Anek Latin Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-num: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --ease-out-expo: var(--ease-out);
+}
+
+@layer base {
+  html {
+    /* Everything is sized in rem, so this scales the whole UI: at 100%
+       browser zoom it looks the way it used to at 90%. Percent (not px)
+       keeps the user's own browser font-size setting in effect. */
+    font-size: 90%;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  body {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #f3d98a;
+    color: var(--ink);
+  }
+
+  input {
+    caret-color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Panels: the summary, the form, the list, the dialog, the top bar. */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Text fields. */
+  .field {
+    background: #fffdf8;
+    border: 1px solid var(--line-strong);
+    transition:
+      border-color 200ms var(--ease-out),
+      box-shadow 200ms var(--ease-out);
+  }
+  .field:hover {
+    border-color: #bfb197;
+  }
+  .field:focus-within {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px rgba(43, 38, 32, 0.08);
+  }
+  .field[data-invalid="true"] {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(217, 45, 47, 0.1);
+  }
+
+  /* Bar troughs and quiet filled areas. */
+  .track,
+  .tint {
+    background: var(--tint);
+  }
+
+  /* Buttons: secondary (outlined), primary (inked), danger. */
+  .btn {
+    background: var(--card);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    transition:
+      background-color 180ms var(--ease-out),
+      border-color 180ms var(--ease-out),
+      color 180ms var(--ease-out);
+  }
+  .btn:not(:disabled):hover {
+    background: var(--tint);
+    border-color: #bfb197;
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--card);
+    transition: background-color 180ms var(--ease-out);
+  }
+  .btn-primary:hover {
+    background: #453d33;
+  }
+  .btn-danger {
+    background: var(--danger);
+    color: #fff;
+    transition: background-color 180ms var(--ease-out);
+  }
+  .btn-danger:hover {
+    background: #b72326;
+  }
+  /* "On" state for chips and the current page. */
+  .is-current,
+  .is-current:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--card);
+  }
+
+  .divider {
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* The one neumorphic detail: the navbar's tab tray and its raised key. */
+  .neu-tray {
+    background: #efe7d8;
+    box-shadow:
+      inset 2px 2px 5px rgba(120, 95, 55, 0.16),
+      inset -2px -2px 5px rgba(255, 255, 255, 0.75);
+  }
+  .neu-raised {
+    background: linear-gradient(145deg, #fefbf4, #f1e9da);
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+      -2px -2px 5px rgba(255, 255, 255, 0.7),
+      2px 3px 7px rgba(120, 95, 55, 0.2);
+  }
+}
+
+@layer utilities {
+  /* Every number: Manrope, tabular so columns of amounts line up. */
+  .num {
+    font-family: var(--font-num);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* A rolling column eases to the width of the digit it lands on. */
+.digit-column {
+  transition: width 0.5s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .digit-column,
+  .field,
+  .btn,
+  .btn-primary,
+  .btn-danger {
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .neu-tray,
+  .neu-raised {
+    border: 1px solid CanvasText;
+  }
+}
